@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy tickets</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <style>
+      body {
+        background-color: #ccc;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .main {
+        border-radius: 10px;
+        box-shadow: 10px 10px 90px -60px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center p-5">
+        <div class="col-md-9 main mx-2 bg-white p-4">
+          <h1 class="text-center display-4 font-weight-normal">Tickets</h1>
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <h4>Infants (under 4)</h4>
+              <h5>Per Ticket: $20</h5>
+              <p>Age under 4</p>
+              <button
+                type="button"
+                class="btn btn-outline-primary decrement_btn"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              <span class="mx-3 under_4">0</span>
+              <button
+                type="button"
+                class="btn btn-outline-primary increment_btn"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="col-md-4 mx-auto my-4 my-md-0 text-center">
+              <h4>Children (age 4-11)</h4>
+              <h5>Per Ticket: $50</h5>
+              <p>Age 4-11</p>
+              <button
+                type="button"
+                class="btn btn-outline-primary decrement_btn"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              <span class="mx-3 children">0</span>
+              <button
+                type="button"
+                class="btn btn-outline-primary increment_btn"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="col-md-4 text-center">
+              <h4>Adults (Age 12+)</h4>
+              <h5>Per Ticket: $80</h5>
+              <p>Age above 12</p>
+              <button
+                type="button"
+                class="btn btn-outline-primary decrement_btn"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+              <span class="mx-3 adults">0</span>
+              <button
+                type="button"
+                class="btn btn-outline-primary increment_btn"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-5 d-flex justify-content-center w-100">
+            <button type="button" class="btn btn-danger mx-2 reset">
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn btn-success mx-2 book_now"
+              data-toggle="modal"
+              data-target="#myModal"
+            >
+              Book now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="text-center">Collect Your Park Tickets</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body p-5">
+            <div class="row">
+              <div class="col-6 ml-4">
+                <p class="font-weight-bold">Ticket Type</p>
+                <p class="">Infants(under 4)</p>
+                <p class="my-4">Children (age 4-11)</p>
+                <p>Adults (age 12+)</p>
+                <hr />
+                <h5>Total Amount</h5>
+              </div>
+              <div class="col-5 text-center">
+                <p class="font-weight-bold">Ticket Qua. | Price</p>
+                <p>
+                  <span class="quantity_under_4"></span
+                  ><span class="ml-5"></span><span class="under_4_list"></span>
+                </p>
+                <p class="my-4">
+                  <span class="quantity_children"></span
+                  ><span class="ml-5"></span
+                  ><span class="my-4 children_list"></span>
+                </p>
+                <p class="">
+                  <span class="quantity_adults"></span><span class="ml-5"></span
+                  ><span class="adults_list"></span>
+                </p>
+                <hr />
+                <h4>$<span class="total"></span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('.decrement_btn').click(function () {
+          if (Number($(this).next().text()) > 0) {
+            $(this)
+              .next()
+              .text(Number($(this).next().text()) - 1);
+          }
+        });
+
+        $('.increment_btn').click(function () {
+          $(this)
+            .prev()
+            .text(Number($(this).prev().text()) + 1);
+        });
+
+        $('.reset').click(function () {
+          $('span').each(function () {
+            $(this).text(0);
+          });
+        });
+
+        $('.book_now').click(function () {
+          $('.under_4_list').text('$' + Number($('.under_4').text()) * 20);
+          $('.children_list').text('$' + Number($('.children').text()) * 50);
+          $('.adults_list').text('$' + Number($('.adults').text()) * 80);
+
+          $('.total').text(
+            Number($('.under_4').text()) * 20 +
+              Number($('.children').text()) * 50 +
+              Number($('.adults').text()) * 80
+          );
+          $('.quantity_under_4').text($('.under_4').text());
+          $('.quantity_children').text($('.children').text());
+          $('.quantity_adults').text($('.adults').text());
+        });
+      });
+    </script>
+  </body>
+</html>
